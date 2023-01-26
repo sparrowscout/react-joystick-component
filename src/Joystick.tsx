@@ -14,6 +14,7 @@ export interface IJoystickProps {
   move?: (event: IJoystickUpdateEvent) => void;
   stop?: (event: IJoystickUpdateEvent) => void;
   start?: (event: IJoystickUpdateEvent) => void;
+  stream?: (event: IJoystickUpdateEvent) => void;
   stickImage?: string;
   baseImage?: string;
   followCursor?: boolean;
