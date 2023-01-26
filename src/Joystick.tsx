@@ -111,9 +111,6 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         this._pointerMove(event)
       );
     }
-    if (this._signalInterval) {
-      clearInterval(this._signalInterval);
-    }
   }
 
   componentDidMount() {
@@ -163,17 +160,19 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
   componentDidUpdate(prevProps: Readonly<IJoystickProps>): void {
     // ispressure가 바뀔때마다
     if (this.props.isPressure !== prevProps.isPressure) {
-      if (this.props.config?.continuous && !this._signalInterval) {
-        this._signalInterval = setInterval(() => {
-          console.log("interval", this.state.coordinates);
-          if (this.props.move && this.state.coordinates) {
-            //@ts-ignore
-            this.props.move(this.state.coordinates);
-          }
-        }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
-      } else {
-        clearInterval(this._signalInterval);
-        console.log("clearInterval");
+      if (this.props.config?.continuous) {
+        if (!this._signalInterval) {
+          this._signalInterval = setInterval(() => {
+            console.log("interval", this.state.coordinates);
+            if (this.props.move && this.state.coordinates) {
+              //@ts-ignore
+              this.props.move(this.state.coordinates);
+            }
+          }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
+        } else {
+          clearInterval(this._signalInterval);
+          console.log("clearInterval");
+        }
       }
     }
   }
@@ -327,9 +326,6 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
    */
 
   private _pointerUp(event: PointerEvent) {
-    if (this._signalInterval) {
-      clearInterval(this._signalInterval);
-    }
     if (event.pointerId !== this._pointerId) return;
     const stateUpdate = {
       dragging: false,
