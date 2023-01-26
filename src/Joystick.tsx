@@ -308,7 +308,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
    */
   private _pointerUp(event: PointerEvent) {
     clearInterval(this._signalInterval);
-
+    console.log("check");
     if (event.pointerId !== this._pointerId) return;
     const stateUpdate = {
       dragging: false,
