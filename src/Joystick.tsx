@@ -22,6 +22,7 @@ export interface IJoystickProps {
   controlPlaneShape?: JoystickShape;
   minDistance?: number;
   config?: IJoystickConfig;
+  isPressure?: boolean;
 }
 export interface IJoystickConfig {
   continuous?: boolean;
@@ -126,15 +127,15 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         direction: "CENTER",
       },
     });
-    if (this.props.config?.continuous) {
-      this._signalInterval = setInterval(() => {
-        console.log(this._signalInterval);
-        if (this.props.move && this.state.coordinates) {
-          //@ts-ignore
-          this.props.move(this.state.coordinates);
-        }
-      }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
-    }
+    // if (this.props.config?.continuous) {
+    //   this._signalInterval = setInterval(() => {
+    //     console.log("interval", this.state.coordinates);
+    //     if (this.props.move && this.state.coordinates) {
+    //       //@ts-ignore
+    //       this.props.move(this.state.coordinates);
+    //     }
+    //   }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
+    // }
     if (this.props.followCursor) {
       //@ts-ignore
       this._parentRect = this._baseRef.current.getBoundingClientRect();
@@ -155,6 +156,24 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
           distance: null,
           direction: null,
         });
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<IJoystickProps>): void {
+    // ispressure가 바뀔때마다
+    if (this.props.isPressure !== prevProps.isPressure) {
+      if (this.props.config?.continuous && !this._signalInterval) {
+        this._signalInterval = setInterval(() => {
+          console.log("interval", this.state.coordinates);
+          if (this.props.move && this.state.coordinates) {
+            //@ts-ignore
+            this.props.move(this.state.coordinates);
+          }
+        }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
+      } else {
+        clearInterval(this._signalInterval);
+        console.log("clearInterval");
       }
     }
   }
