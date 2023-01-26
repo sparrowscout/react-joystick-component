@@ -307,6 +307,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
    * @private
    */
   private _pointerUp(event: PointerEvent) {
+    console.log(this._signalInterval);
     if (this._signalInterval) {
       console.log("check");
       clearInterval(this._signalInterval);
