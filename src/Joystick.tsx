@@ -308,6 +308,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
    */
   private _pointerUp(event: PointerEvent) {
     if (this._signalInterval) {
+      console.log("check");
       clearInterval(this._signalInterval);
     }
     if (event.pointerId !== this._pointerId) return;
@@ -316,11 +317,11 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
     } as any;
     if (!this.props.sticky) {
       stateUpdate.coordinates = {
-        distance: null,
-        relativeX: null,
-        relativeY: null,
-        axisX: null,
-        axisY: null,
+        distance: 0,
+        relativeX: 0,
+        relativeY: 0,
+        axisX: 0,
+        axisY: 0,
         direction: "CENTER",
       };
     }
