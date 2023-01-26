@@ -128,6 +128,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
     });
     if (this.props.config?.continuous) {
       this._signalInterval = setInterval(() => {
+        console.log(this._signalInterval);
         if (this.props.move && this.state.coordinates) {
           //@ts-ignore
           this.props.move(this.state.coordinates);
@@ -307,6 +308,9 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
    */
 
   private _pointerUp(event: PointerEvent) {
+    if (this._signalInterval) {
+      clearInterval(this._signalInterval);
+    }
     if (event.pointerId !== this._pointerId) return;
     const stateUpdate = {
       dragging: false,
