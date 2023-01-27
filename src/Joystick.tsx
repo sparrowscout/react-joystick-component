@@ -166,7 +166,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
       console.log(this._signalInterval); // 됨!
       if (this.props.config?.continuous) {
         console.log("config.continuous");
-        if (!this.state.isInterval) {
+        if (!this.state.isInterval && this.props.isPressure) {
           console.log("this.state.isInterval");
           this._signalInterval = setInterval(() => {
             console.log("interval", this.state.coordinates);
