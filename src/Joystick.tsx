@@ -161,10 +161,12 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
     // ispressure가 바뀔때마다
     console.log(this._signalInterval);
     if (this.props.isPressure !== prevProps.isPressure) {
-      console.log(this.props.isPressure, prevProps.isPressure);
-      console.log(this._signalInterval);
+      console.log(this.props.isPressure, prevProps.isPressure); // 됨!
+      console.log(this._signalInterval); // 됨!
       if (this.props.config?.continuous) {
+        console.log("config.continuous");
         if (!this._signalInterval) {
+          console.log("!this._signalInterval");
           this._signalInterval = setInterval(() => {
             console.log("interval", this.state.coordinates);
             if (this.props.move && this.state.coordinates) {
