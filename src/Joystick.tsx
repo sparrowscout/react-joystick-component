@@ -125,15 +125,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         direction: "CENTER",
       },
     });
-    // if (this.props.config?.continuous) {
-    //   this._signalInterval = setInterval(() => {
-    //     console.log("interval", this.state.coordinates);
-    //     if (this.props.move && this.state.coordinates) {
-    //       //@ts-ignore
-    //       this.props.move(this.state.coordinates);
-    //     }
-    //   }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
-    // }
+
     if (this.props.followCursor) {
       //@ts-ignore
       this._parentRect = this._baseRef.current.getBoundingClientRect();
@@ -159,17 +151,10 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
   }
 
   componentDidUpdate(prevProps: Readonly<IJoystickProps>): void {
-    // ispressure가 바뀔때마다
-    console.log(this._signalInterval);
     if (this.props.isPressure !== prevProps.isPressure) {
-      console.log(this.props.isPressure, prevProps.isPressure); // 됨!
-      console.log(this._signalInterval); // 됨!
       if (this.props.config?.continuous) {
-        console.log("config.continuous");
         if (!this.state.isInterval && this.props.isPressure) {
-          console.log("this.state.isInterval");
           this._signalInterval = setInterval(() => {
-            console.log("interval", this.state.coordinates);
             if (this.props.move && this.state.coordinates) {
               //@ts-ignore
               this.props.move(this.state.coordinates);
@@ -180,7 +165,6 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
           this.setState({
             isInterval: false,
           });
-          console.log("clearInterval");
         }
       }
     }
