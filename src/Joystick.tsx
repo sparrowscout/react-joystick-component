@@ -47,6 +47,7 @@ export interface IJoystickUpdateEvent {
 export interface IJoystickState {
   dragging: boolean;
   coordinates?: IJoystickCoordinates;
+  isInterval?: boolean;
 }
 
 type JoystickDirection = "FORWARD" | "RIGHT" | "LEFT" | "BACKWARD" | "CENTER";
@@ -165,8 +166,8 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
       console.log(this._signalInterval); // 됨!
       if (this.props.config?.continuous) {
         console.log("config.continuous");
-        if (!this._signalInterval) {
-          console.log("!this._signalInterval");
+        if (!this.state.isInterval) {
+          console.log("this.state.isInterval");
           this._signalInterval = setInterval(() => {
             console.log("interval", this.state.coordinates);
             if (this.props.move && this.state.coordinates) {
@@ -176,6 +177,9 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
           }, this.props.config.signalRate || DEFAULT_SIGNAL_RATE);
         } else {
           clearInterval(this._signalInterval);
+          this.setState({
+            isInterval: false,
+          });
           console.log("clearInterval");
         }
       }
