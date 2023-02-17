@@ -1,4 +1,5 @@
 export enum JoystickShape {
-    Circle = 'circle',
-    Square = 'square'
+  Circle = "circle",
+  Square = "square",
+  Line = "line",
 }

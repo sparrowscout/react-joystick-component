@@ -382,11 +382,10 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
     const baseColor: string =
       this.props.baseColor !== undefined ? this.props.baseColor : "#000033";
 
-    const baseSizeString = `${this._baseSize}px`;
+    // const baseSizeString = `${this._baseSize}px`;
+
     const padStyle = {
       ...this.getBaseShapeStyle(),
-      height: baseSizeString,
-      width: baseSizeString,
       background: baseColor,
       display: "flex",
       justifyContent: "center",
