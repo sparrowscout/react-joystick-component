@@ -282,8 +282,15 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
       if (!this.props.followCursor && event.pointerId !== this._pointerId) return;
       const absoluteX = event.clientX;
       const absoluteY = event.clientY;
-      let relativeX = absoluteX - this._parentRect.left - this._radius;
-      let relativeY = absoluteY - this._parentRect.top - this._radius;
+      let relativeX =
+        this.props.baseShape === JoystickShape.Line
+          ? absoluteX - this._parentRect.width
+          : absoluteX - this._parentRect.left - this._radius;
+      let relativeY =
+        this.props.baseShape === JoystickShape.Line
+          ? 0
+          : absoluteY - this._parentRect.top - this._radius;
+
       const dist = this._distance(relativeX, relativeY);
       // @ts-ignore
       const bounded = shapeBoundsFactory(
@@ -307,8 +314,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         relativeY,
         distance: this._distanceToPercentile(dist),
         direction: this._getDirection(atan2),
-        axisX: this._parentRect.width,
-        // axisX: absoluteX - this._parentRect.left,
+        axisX: absoluteX - this._parentRect.left,
         axisY: absoluteY - this._parentRect.top,
       });
     }
