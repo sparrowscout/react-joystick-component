@@ -307,7 +307,8 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         relativeY,
         distance: this._distanceToPercentile(dist),
         direction: this._getDirection(atan2),
-        axisX: absoluteX - this._parentRect.left,
+        axisX: this._parentRect.width,
+        // axisX: absoluteX - this._parentRect.left,
         axisY: absoluteY - this._parentRect.top,
       });
     }
