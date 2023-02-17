@@ -432,7 +432,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         console.log("line");
         stickStyle = Object.assign({}, stickStyle, {
           position: "absolute",
-          transform: `translate3d(${this.state.coordinates.relativeX}px, 0px, 0)`,
+          transform: `translate3d(${this.state.coordinates.axisX}px, 0px, 0)`,
         });
       }
       // stickStyle = Object.assign({}, stickStyle, {
