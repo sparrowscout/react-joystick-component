@@ -284,7 +284,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
       const absoluteY = event.clientY;
       let relativeX =
         this.props.baseShape === JoystickShape.Line
-          ? absoluteX - this._parentRect.width
+          ? absoluteX - this._parentRect.width - this._radius
           : absoluteX - this._parentRect.left - this._radius;
       let relativeY =
         this.props.baseShape === JoystickShape.Line
