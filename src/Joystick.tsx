@@ -447,7 +447,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
   render() {
     this._baseSize = this.props.size || 100;
     this._stickSize = this.props.stickSize;
-    this._radius = this.props.baseShape === JoystickShape.Line ? 100 : this._baseSize / 2;
+    this._radius = this.props.baseShape === JoystickShape.Line ? 80 : this._baseSize / 2;
     const baseStyle = this._getBaseStyle();
     const stickStyle = this._getStickStyle();
     //@ts-ignore
