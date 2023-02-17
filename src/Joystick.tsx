@@ -405,8 +405,11 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
   private _getStickStyle(): any {
     const stickColor: string =
       this.props.stickColor !== undefined ? this.props.stickColor : "#3D59AB";
+
     const stickSize = this._stickSize
       ? `${this._stickSize}px`
+      : this.props.baseShape === JoystickShape.Line
+      ? `${this._baseSize * 6}px`
       : `${this._baseSize / 1.5}px`;
 
     let stickStyle = {
@@ -425,6 +428,12 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
     }
 
     if (this.state.coordinates && this.state.coordinates.direction !== "CENTER") {
+      if (this.props.baseShape === JoystickShape.Line) {
+        stickStyle = Object.assign({}, stickStyle, {
+          position: "absolute",
+          transform: `translate3d(${this.state.coordinates.relativeX}px, 0, 0)`,
+        });
+      }
       stickStyle = Object.assign({}, stickStyle, {
         position: "absolute",
         transform: `translate3d(${this.state.coordinates.relativeX}px, ${this.state.coordinates.relativeY}px, 0)`,
