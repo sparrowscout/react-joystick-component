@@ -432,13 +432,14 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
         console.log("line");
         stickStyle = Object.assign({}, stickStyle, {
           position: "absolute",
-          transform: `translate3d(${this.state.coordinates.axisX}px, 0px, 0)`,
+          transform: `translate3d(${this.state.coordinates.relativeX}px, 0px, 0)`,
+        });
+      } else {
+        stickStyle = Object.assign({}, stickStyle, {
+          position: "absolute",
+          transform: `translate3d(${this.state.coordinates.relativeX}px, ${this.state.coordinates.relativeY}px, 0)`,
         });
       }
-      // stickStyle = Object.assign({}, stickStyle, {
-      //   position: "absolute",
-      //   transform: `translate3d(${this.state.coordinates.relativeX}px, ${this.state.coordinates.relativeY}px, 0)`,
-      // });
     }
     return stickStyle;
   }
@@ -446,8 +447,7 @@ class Joystick extends React.Component<IJoystickProps, IJoystickState> {
   render() {
     this._baseSize = this.props.size || 100;
     this._stickSize = this.props.stickSize;
-    this._radius =
-      this.props.baseShape === JoystickShape.Line ? this._baseSize : this._baseSize / 2;
+    this._radius = this.props.baseShape === JoystickShape.Line ? 100 : this._baseSize / 2;
     const baseStyle = this._getBaseStyle();
     const stickStyle = this._getStickStyle();
     //@ts-ignore
