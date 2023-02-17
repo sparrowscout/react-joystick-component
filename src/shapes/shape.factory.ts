@@ -8,9 +8,9 @@ export const shapeFactory = (shape: JoystickShape, size: number) => {
       return { height: `${size}px`, width: `${size}px`, borderRadius: Math.sqrt(size) };
     case JoystickShape.Line:
       return {
-        width: `${size}px`,
-        height: `${size * 0.1}px`,
-        borderRadius: size,
+        width: `${size}rem`,
+        height: `${size * 0.1}rem`,
+        borderRadius: `${size}rem`,
       };
   }
 };
